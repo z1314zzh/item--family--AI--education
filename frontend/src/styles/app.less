@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700&display=swap');
 body{
-    font-family: "";
+    font-family: "Nunito",sans-serif;
 }
 
 .app-root {
@@ -77,6 +77,12 @@ body{
             color: #c61b7fd4;
             margin-bottom: 10px;
         }
+        .auth-title{
+            font-size:20px;
+            font-weight: 700;
+            color: #555;
+            margin-bottom: 6px;
+        }
         .auth-subtitle{
             font-size: 14px;
             font-weight: 400;
@@ -93,14 +99,7 @@ body{
         margin-bottom: 25px;
         box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         position: relative;
-        
-        .slider-container{
-            line-height: 48px;
-            font-weight: 600;
-                ·1
-        }
-
-        
+          
 
         .slider-button{
             position: absolute;
@@ -115,6 +114,15 @@ body{
              &--right{
                 transform: translateX(calc(100%));
              }
+        }
+
+        .slider-tabs{
+            display: flex;
+            height: 48px;
+            .slider-tab{
+                flex: 1;
+            }
+            
         }
     }
 }
