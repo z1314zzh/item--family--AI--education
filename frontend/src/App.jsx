@@ -1,13 +1,22 @@
 import React from 'react'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/app.less'
 import { useState } from 'react'
 
 
+
 // 登录注册页面组件
 const AuthPage = () => {
- const [activeTab,setActiveTab] = useState('login')
+  const [activeTab, setActiveTab] = useState('login')
+  const login = () => {
+    setActiveTab('login')
+  }
+  const resgister = () => {
+    setActiveTab('register')
+  }
+
   return (
     <div className='app-root'>
       <div className="cartoon-bg"></div>
@@ -21,10 +30,27 @@ const AuthPage = () => {
           <div className="slider-container">
             <div className={`slider-button ${activeTab === 'register' ? 'slider-button--right' : ''}`}></div>
             <div className="slider-tabs">
-                <button className='slider-tab'>登录</button>
-                <button className='slider-tab'>注册</button>
-              </div>
+              <button className={`slider-tab ${activeTab === 'login' ? 'slider-tab--active' : ''}`} onClick={login}>登录</button>
+              <button className={`slider-tab ${activeTab === 'register' ? 'slider-tab--active' : ''}`} onClick={resgister}>注册</button>
+            </div>
           </div>
+          {/* 登录模块 */}
+          {
+            activeTab === 'login' ? (<Login></Login>) : <Register></Register>
+          }
+          <div className="social-login">
+            <div className="divider">
+              <div className="divider-line"></div>
+              <div className="divider-text">第三方账号登录</div>
+              <div className="divider-line"></div>
+            </div>
+            <div className="oauth-buttons">
+              <button className='oauth-buttons__btn'>
+                
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -38,6 +64,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='*' element={<AuthPage />}></Route>
         <Route path='/login' element={<AuthPage />}></Route>
       </Routes>
     </BrowserRouter>

@@ -53,7 +53,7 @@ body{
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        background: linear-gradient(1.35deg, #a5f4a9, #08e622);
+        background: linear-gradient(1.35deg, #da5ba7, #e326aa);
         display: block;
         position: absolute;
         bottom: -50px;
@@ -107,22 +107,56 @@ body{
              left: 3px;
              height: 42px;
              width: calc(50% - 3px);
-             background: linear-gradient(135deg,#bcf5bf,#58fc6b);
+             background: linear-gradient(135deg,#f43e9f,#e60e5d);
              border-radius: 21px;
              z-index: 0;
              box-shadow: 0 2px 8px rgba(255,140,0, 0.3);
+             transition: transform 0.4s cubic-bezier(0.68,-0.55,0.27,1.55);
              &--right{
                 transform: translateX(calc(100%));
              }
+            
         }
 
         .slider-tabs{
             display: flex;
             height: 48px;
+            z-index: 1;
+           position: relative;
             .slider-tab{
                 flex: 1;
+                text-align: center;
+                line-height: 48px;
+                font-weight: 600;
+                font-size: 16px;
+                background: transparent;
+                border: none;
+                color: #666;
+                &--active{
+                    color: #fff;
+                }
             }
             
         }
     }
+    .social-login{
+        margin: 30px 0;
+        .divider{
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            &-line{
+                flex: 1;
+                height: 1px;
+                background-color: #eee;
+            }
+            &-text{
+                padding: 0 15px;
+                color: #888;
+                font-size: 14px;
+            }
+
+        }
+    }
+
 }
