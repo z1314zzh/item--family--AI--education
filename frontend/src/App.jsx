@@ -4,7 +4,7 @@ import Register from './pages/Register'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/app.less'
 import { useState } from 'react'
-
+import './styles/login.less'
 
 
 // 登录注册页面组件
@@ -46,11 +46,19 @@ const AuthPage = () => {
             </div>
             <div className="oauth-buttons">
               <button className='oauth-buttons__btn'>
-                
+                <i className='iconfont icon-weixin'></i>
+              </button>
+              <button className='oauth-buttons__btn'>
+                <i className='iconfont icon-QQ'></i>
+              </button>
+              <button className='oauth-buttons__btn'>
+                <i className='iconfont icon-github-fill'></i>
               </button>
             </div>
           </div>
-
+          <div className="auth-footnote">
+            <p>注册既表示您同意 <a href="#">《用户协议》</a>和<a href="#">《隐私政策》</a></p>
+          </div>
         </div>
       </div>
     </div>
