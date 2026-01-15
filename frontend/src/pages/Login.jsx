@@ -63,13 +63,13 @@ export default function Login() {
     setTimeout(async() => {
       setLoading(false)
       //向后端请求
-     const res =await fetch('http://localhost:3000/auth/login',{
+     const res =await fetch('http://localhost:3000/api/auth/login',{
         method:'POST',
         headers:{'Content-Type' : 'application/json'},
         body: JSON.stringify({account,password})
      })
      const data =await res.json()
-     console.log(data.ctx);
+     
      
      
 

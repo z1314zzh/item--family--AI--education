@@ -14,3 +14,7 @@
  # 服务端
  - 定义多个接口
  1. npm i koa-router 安装路由，用来分门别类的定义后端接口地址
+
+ 2. 路由层，控制层，模板层
+
+ 3. npm i koa-bodyparser 辅助 koa 解析 post 请求体中的参数
