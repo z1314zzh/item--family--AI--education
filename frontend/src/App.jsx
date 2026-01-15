@@ -4,7 +4,7 @@ import Register from './pages/Register'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/app.less'
 import { useState } from 'react'
-import './styles/login.less'
+
 
 
 // 登录注册页面组件

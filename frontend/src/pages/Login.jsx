@@ -1,25 +1,29 @@
 import React, { useState } from 'react'
+import '../styles/login.less'
+import { Toast } from 'antd-mobile'
+
+
 
 export default function Login() {
   const [loading, setLoading] = useState(false)
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  
+
   // 手机号格式校验正则表达式
   const validatePhone = (phoneNumber) => {
     // 中国大陆手机号正则：以1开头，第二位3-9，后面9位数字，共11位
     const phoneRegex = /^1[3-9]\d{9}$/
     return phoneRegex.test(phoneNumber)
   }
-  
+
   // 邮箱格式校验正则表达式
   const validateEmail = (email) => {
     // 邮箱正则：支持常见邮箱格式
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return emailRegex.test(email)
   }
-  
+
   // 验证账号格式（支持手机号或邮箱）
   const validateAccount = (account) => {
     return validatePhone(account) || validateEmail(account)
@@ -29,34 +33,48 @@ export default function Login() {
     e.preventDefault()// 阻止默认行为
     //校验账号格式
     setError('')
-    
+
     // 校验账号格式
     if (!account.trim()) {
       setError('请输入手机号或邮箱')
       return
     }
-    
+
     if (!validateAccount(account)) {
       setError('请输入正确的手机号或邮箱格式')
       return
     }
-    
+
     // 校验密码
     if (!password.trim()) {
       setError('请输入密码')
       return
     }
-    
+
     // 这里添加登录逻辑
     setLoading(true)
+    Toast.show({
+      icon: 'loading',
+      content: '登录中…',
+    })
 
-    
-    
+
     // 模拟登录请求
-    setTimeout(() => {
+    setTimeout(async() => {
       setLoading(false)
-        
-    }, 1500)
+      //向后端请求
+     const res =await fetch('http://localhost:3000/auth/login',{
+        method:'POST',
+        headers:{'Content-Type' : 'application/json'},
+        body: JSON.stringify({account,password})
+     })
+     const data =await res.json()
+     console.log(data.ctx);
+     
+     
+
+
+    }, 2000)
   }
   const accountChange = (e) => {
     setAccount(e.target.value)
@@ -72,23 +90,23 @@ export default function Login() {
 
         <div className="auth-form__group">
           <i className='iconfont icon-zhanghao'></i>
-          <input 
-            type="text" 
-            placeholder='请输入手机号或邮箱' 
-            className='auth-form__input' 
-            onChange={accountChange} 
-            value={account} 
+          <input
+            type="text"
+            placeholder='请输入手机号或邮箱'
+            className='auth-form__input'
+            onChange={accountChange}
+            value={account}
           />
         </div>
 
         <div className="auth-form__group">
           <i className='iconfont icon-mima-copy'></i>
-          <input 
-            type="password" 
-            placeholder='请输入密码' 
-            className='auth-form__input' 
-            onChange={passwordChange} 
-            value={password} 
+          <input
+            type="password"
+            placeholder='请输入密码'
+            className='auth-form__input'
+            onChange={passwordChange}
+            value={password}
           />
         </div>
 
