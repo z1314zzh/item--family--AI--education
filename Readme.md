@@ -15,6 +15,12 @@
  - 定义多个接口
  1. npm i koa-router 安装路由，用来分门别类的定义后端接口地址
 
- 2. 路由层，控制层，模板层
+ 2. 路由层: 定义接口
+    控制层: 当前端请求该接口，响应的逻辑
+    模板层: 响应逻辑中与数据库打交道的代码
 
  3. npm i koa-bodyparser 辅助 koa 解析 post 请求体中的参数
+
+ 4. npm install --save mysql2 安装 mysql (用法看文档)
+ 
+ 5. npm i bcrypt 通过bcrypt.js 对密码进行加密解密
