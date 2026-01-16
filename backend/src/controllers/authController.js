@@ -1,5 +1,6 @@
 const {findUserByAccount} = require('../models/authModel.js')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 async function login(ctx) {
     // 解析请求体中的账号和密码
@@ -25,9 +26,19 @@ async function login(ctx) {
         ctx.body = {message:'密码错误'}
         return
     }
-    console.log('登录成功');
-    
-    
+        //生成一个 token
+    const token = jwt.sign({id:user.id,account:user.account},'zzh',{expiresIn:'7d'})
+    ctx.body = {
+        message:'登录成功',
+        token,
+        user:{
+            id:user.id,
+            account:user.account
+        }
+    }
+
+
+
 }
 
 module.exports ={
