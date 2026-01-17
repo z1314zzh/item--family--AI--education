@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../styles/login.less'
 import { Toast } from 'antd-mobile'
-
+import  axios from '../http/index'
 
 
 export default function Login() {
@@ -63,19 +63,23 @@ export default function Login() {
     setTimeout(async () => {
       setLoading(false)
       //向后端请求
-      const res = await fetch('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ account, password })
+      // const res = await fetch('http://localhost:3000/api/auth/login', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ account, password })
+      // })
+      const res = await axios.post('/api/auth/login',{
+           account,
+           password
       })
-      const data = await res.json()
-      if (data.token) {
-        Toast.show({
-          icon: 'success',
-          content: '登录成功',
-        })
-      }
-      console.log(data);
+      // const data = await res.json()
+      // if (data.token) {
+      //   Toast.show({
+      //     icon: 'success',
+      //     content: '登录成功',
+      //   })
+      // }
+      console.log(res);
 
 
 
