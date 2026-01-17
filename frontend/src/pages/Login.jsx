@@ -60,18 +60,26 @@ export default function Login() {
 
 
     // 模拟登录请求
-    setTimeout(async() => {
+    setTimeout(async () => {
       setLoading(false)
       //向后端请求
-     const res =await fetch('http://localhost:3000/api/auth/login',{
-        method:'POST',
-        headers:{'Content-Type' : 'application/json'},
-        body: JSON.stringify({account,password})
-     })
-     const data =await res.json()
-     
-     
-     
+      const res = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ account, password })
+      })
+      const data = await res.json()
+      if (data.token) {
+        Toast.show({
+          icon: 'success',
+          content: '登录成功',
+        })
+      }
+      console.log(data);
+
+
+
+
 
 
     }, 2000)
