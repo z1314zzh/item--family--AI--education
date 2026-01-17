@@ -6,8 +6,8 @@ import { Toast } from 'antd-mobile'
 
 export default function Login() {
   const [loading, setLoading] = useState(false)
-  const [account, setAccount] = useState('')
-  const [password, setPassword] = useState('')
+  const [account, setAccount] = useState('17870067232')
+  const [password, setPassword] = useState('123')
   const [error, setError] = useState('')
 
   // 手机号格式校验正则表达式
