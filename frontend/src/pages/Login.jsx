@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import '../styles/login.less'
 import { Toast } from 'antd-mobile'
-import  axios from '../http/index'
-
+import axios from '../http'
+import  {Navigate, useNavigate} from 'react-router-dom'
 
 export default function Login() {
   const [loading, setLoading] = useState(false)
   const [account, setAccount] = useState('17870067232')
   const [password, setPassword] = useState('123')
   const [error, setError] = useState('')
+  const Navigate = useNavigate()
 
   // 手机号格式校验正则表达式
   const validatePhone = (phoneNumber) => {
@@ -72,20 +73,16 @@ export default function Login() {
            account,
            password
       })
-      // const data = await res.json()
-      // if (data.token) {
-      //   Toast.show({
-      //     icon: 'success',
-      //     content: '登录成功',
-      //   })
-      // }
+
+      if (res.token) {
+        Toast.show({
+          icon: 'success',
+          content: '登录成功',
+        })
+      }
       console.log(res);
-
-
-
-
-
-
+      localStorage.setItem('token',res.data)
+      Navigate('/')
     }, 2000)
   }
   const accountChange = (e) => {

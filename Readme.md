@@ -1,20 +1,27 @@
 # frontend(客户端)
 - 移动端: 
- 1. 适配不同的屏幕尺寸  （）
+  1. 适配不同的屏幕尺寸  （）
   - 不同屏幕尺寸元素的排版
   - 不同屏幕尺寸的元素大小  （rem）
   - 封装 rem.js 用来动态的修改页面和字体大小
 
- 2. 样式初始化
+  2. 样式初始化
 
 
 
- 3. npm i react-router-dom 安装路由，开发登录注册页面
+  3. npm i react-router-dom 安装路由，开发登录注册页面
 
  - ajax 错误统一处理:
- - npm install axios 安装axios替代fetch
+   - npm install axios 安装axios替代fetch
   
-  二次封装 axios
+    二次封装 axios
+
+
+  - 浏览器的存储
+    1. localStorag: 本地存储 (内存大小大约 5-8M)
+    2. sessionStorag : 会话存储 (内存大小大约 5-8M ,关闭页面就自动消失)
+    3. cooki: (内存大小大约 4k， 会自动携带在请求头)
+    4. IndexedDB : 客户端的数据库存储 (无穷大，永久有效)
  # 服务端
  - 定义登录接口
  1. npm i koa-router 安装路由，用来分门别类的定义后端接口地址

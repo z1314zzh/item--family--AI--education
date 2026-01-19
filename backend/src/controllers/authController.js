@@ -34,7 +34,8 @@ async function login(ctx) {
         user:{
             id:user.id,
             account:user.account
-        }
+        },
+        code:1
     }
 
 

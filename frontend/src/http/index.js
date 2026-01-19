@@ -27,19 +27,22 @@ axios.interceptors.response.use(
         }
         return response
     },
-    (res) => {
-        if (res.status !== 200) { //程序性错误
+    (res) => {//程序性错误
+        if (res.status !== 200) { 
             Toast.show({
                 icon: 'fail',
                 content: response.data.message
             })
-            return Promise.reject(response)
         }
 
         if(res.status == 416){//没有权限
+            // 重新定向去登录页面
+            setTimeout(() => {
+                window.location.href ='/login'
+            },2000)
             
         }
-        return response
+         return Promise.reject(response)
     }
 )
 
