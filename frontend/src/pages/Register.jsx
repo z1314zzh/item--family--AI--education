@@ -23,7 +23,7 @@ export default function Register() {
           />
         </div>
         <div className="register-form__group">
-          <i className='iconfont icon-zhanghao'></i>
+          <i className='iconfont icon-shoujihaoma-mian'></i>
           <input
             type="text"
             placeholder='请输入手机号'
@@ -35,7 +35,7 @@ export default function Register() {
           />
         </div>
         <div className="register-form__group register-form__group--captcha">
-          <i className='iconfont icon-zhanghao'></i>
+          <i className='iconfont icon-yanzhengma-mianxing'></i>
           <input
             type="text"
             placeholder='请输入验证码'
@@ -49,7 +49,7 @@ export default function Register() {
           <div className="register-form__captcha-img" title='点击刷新验证码'></div>
         </div>
         <div className="register-form__group">
-          <i className='iconfont icon-zhanghao'></i>
+          <i className='iconfont icon-mima-copy'></i>
           <input
             type="password"
             placeholder='请设置密码'
@@ -60,6 +60,8 @@ export default function Register() {
             }}
           />
         </div>
+
+        <button className='register-form__submit' type='submit'>注册</button>
       </form>
     </div>
   )

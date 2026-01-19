@@ -24,19 +24,25 @@
     4. IndexedDB : 客户端的数据库存储 (无穷大，永久有效)
  # 服务端
  - 定义登录接口
- 1. npm i koa-router 安装路由，用来分门别类的定义后端接口地址
+    1. npm i koa-router 安装路由，用来分门别类的定义后端接口地址
 
- 2. 路由层: 定义接口
+    2. 路由层: 定义接口
     控制层: 当前端请求该接口，响应的逻辑
     模板层: 响应逻辑中与数据库打交道的代码
 
- 3. npm i koa-bodyparser 辅助 koa 解析 post 请求体中的参数
+    3. npm i koa-bodyparser 辅助 koa 解析 post 请求体中的参数
 
- 4. npm install --save mysql2 安装 mysql (用法看文档)
+    4. npm install --save mysql2 安装 mysql (用法看文档)
  
- 5. npm i bcrypt 通过bcrypt.js 对密码进行加密解密
+    5. npm i bcrypt 通过bcrypt.js 对密码进行加密解密
 
- 6. token 令牌  -- 前端只有登录成功，后端会生成一个 token，并返回给前端，前端将 token 保存起来，并在未来的其他接口请求时，将这个 token 携带上给后端， 后端校验 token 合法后才返回正确的数据 npm i jsonwebtoken
+    6. token 令牌  -- 前端只有登录成功，后端会生成一个 token，并返回给前端，前端将 token 保存起来，并在未来的其他接口请求时，将这个 token 携带上给后端， 后端校验 token 合法后才返回正确的数据 npm i jsonwebtoken
+
+- 定义验证码接口
+   1. npm install --save svg-captcha
+ 
+ 
+
 
  # 跨域
  https:     //42.245.43.1     :8080        /home
@@ -46,6 +52,5 @@
  协议，域名，端口 都相同的两个端，才可以进行网络通信     
 
 - 解决跨域:
-1. cors (设置响应头来告知浏览器允许哪些源访问我)
-
-2. node 代理
+ 1. cors (设置响应头来告知浏览器允许哪些源访问我)
+ 2. node 代理
