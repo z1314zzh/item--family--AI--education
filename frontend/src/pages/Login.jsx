@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../styles/login.less'
 import { Toast } from 'antd-mobile'
 import axios from '../http'
-import  {Navigate, useNavigate} from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function Login() {
   const [loading, setLoading] = useState(false)
@@ -30,7 +30,7 @@ export default function Login() {
     return validatePhone(account) || validateEmail(account)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()// 阻止默认行为
     //校验账号格式
     setError('')
@@ -61,29 +61,30 @@ export default function Login() {
 
 
     // 模拟登录请求
-    setTimeout(async () => {
-      setLoading(false)
-      //向后端请求
-      // const res = await fetch('http://localhost:3000/api/auth/login', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ account, password })
-      // })
-      const res = await axios.post('/api/auth/login',{
-           account,
-           password
-      })
 
-      if (res.token) {
-        Toast.show({
-          icon: 'success',
-          content: '登录成功',
-        })
-      }
-      console.log(res);
-      localStorage.setItem('token',res.data)
+
+    //向后端请求
+    // const res = await fetch('http://localhost:3000/api/auth/login', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ account, password })
+    // })
+    const res = await axios.post('/api/auth/login', {
+      account,
+      password
+    })
+
+    if (res.token) {
+      Toast.show({
+        icon: 'success',
+        content: '登录成功',
+      })
+      setLoading(false)
+      localStorage.setItem('token', res.data)
       Navigate('/')
-    }, 2000)
+    }
+
+
   }
   const accountChange = (e) => {
     setAccount(e.target.value)

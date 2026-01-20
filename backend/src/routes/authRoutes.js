@@ -12,5 +12,5 @@ router.post('/login',login)
 //验证码接口
 router.get('/captcha',getCaptcha)
 
-
+router.get('/register',register)
 module.exports = router

@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const generateCaptcha = require('../utils/captcha.js')
 
+//校验登录逻辑
 async function login(ctx) {
     // 解析请求体中的账号和密码
 
@@ -49,7 +50,8 @@ function getCaptcha(ctx) {
         const captcha = generateCaptcha()
         ctx.body = {
             captchaId: captcha.id,
-            svg: captcha.svg
+            svg: captcha.svg,
+            code:1
         }
     }catch(error){
         ctx.status = 500,
@@ -62,6 +64,10 @@ function getCaptcha(ctx) {
     }
 }
 
+//验证注册逻辑
+function register(ctx){
+    
+}
 module.exports = {
     login, getCaptcha
 }
