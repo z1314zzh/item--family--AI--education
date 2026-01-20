@@ -40,6 +40,8 @@ function generateCaptcha(ctx) {
     }
 }
 
-
+function verifyCaptcha(ctx){
+    
+}
  
 module.exports = generateCaptcha

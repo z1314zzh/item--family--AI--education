@@ -1,7 +1,7 @@
 const { findUserByAccount } = require('../models/authModel.js')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const generateCaptcha = require('../utils/captcha.js')
+const { generateCaptcha, verifyCaptcha } = require('../utils/captcha.js')
 
 //校验登录逻辑
 async function login(ctx) {
@@ -66,8 +66,29 @@ function getCaptcha(ctx) {
 
 //验证注册逻辑
 function register(ctx){
-    
+    const { nickname,phone,captchaCode,password, captchaId } = ctx.request.body
+    if(!nickname || !phone || password){
+        ctx.status =400
+        ctx.body = {
+            message:'账号密码和昵称都不能为空',
+            code:0
+        }
+        return
+    }
+
+    // 验证图形验证码
+    if(!captchaCode || !captchaId){
+        ctx.status = 400
+        ctx.body ={
+            message:'请输入验证码',
+            code:0
+        }
+        return
+    }
+    const captchaResult = verifyCaptcha(captchaId,captchaCode)
 }
 module.exports = {
-    login, getCaptcha
+     login,
+     getCaptcha,
+     register
 }
