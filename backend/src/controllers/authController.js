@@ -58,8 +58,7 @@ function getCaptcha(ctx) {
         ctx.body = {
             message:'生成验证码失败',
             code:0,
-            error:error.message
-            
+            error:error.message        
         }
     }
 }
@@ -86,6 +85,16 @@ function register(ctx){
         return
     }
     const captchaResult = verifyCaptcha(captchaId,captchaCode)
+    if(!captchaResult.valid){
+        ctx.status = 400
+        ctx.body ={
+            message:captchaResult.message,
+            code:0
+        }
+        return
+    }
+
+    //
 }
 module.exports = {
      login,

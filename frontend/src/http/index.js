@@ -28,21 +28,21 @@ axios.interceptors.response.use(
         return response
     },
     (res) => {//程序性错误
-        if (res.status !== 200) { 
+        if (res.status !== 200) {
             Toast.show({
                 icon: 'fail',
                 content: response.data.message
             })
         }
 
-        if(res.status == 416){//没有权限
+        if (res.status == 416) {//没有权限
             // 重新定向去登录页面
             setTimeout(() => {
-                window.location.href ='/login'
-            },2000)
-            
+                window.location.href = '/login'
+            }, 2000)
+
         }
-         return Promise.reject(response)
+        return Promise.reject(response)
     }
 )
 

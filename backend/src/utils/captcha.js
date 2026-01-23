@@ -40,8 +40,28 @@ function generateCaptcha(ctx) {
     }
 }
 
-function verifyCaptcha(ctx){
+function verifyCaptcha(captchaId,captchaCode){
+    const stored = captchaStore.get(captchaId)
+    if(!stored){
+        return {
+            valid:'fallse',
+            message:'验证码已过期'
+        }
+    }
+    if (stored.text !== captchaCode.toLocaleLowerCase().trim()){
+        return {
+            valid:false,
+            message:'验证码错误'
+        }
+    }
+    captchaStore.delete(captchaId)
+        return{
+            valid:true
+        }
     
 }
  
-module.exports = generateCaptcha
+module.exports = {
+    generateCaptcha,
+    verifyCaptcha
+}
