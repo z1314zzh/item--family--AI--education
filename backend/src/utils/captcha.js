@@ -44,7 +44,7 @@ function verifyCaptcha(captchaId,captchaCode){
     const stored = captchaStore.get(captchaId)
     if(!stored){
         return {
-            valid:'fallse',
+            valid:'false',
             message:'验证码已过期'
         }
     }

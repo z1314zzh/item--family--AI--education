@@ -17,32 +17,34 @@ axios.interceptors.request.use(request => {
 
 //响应拦截
 axios.interceptors.response.use(
-    (response) => {// 逻辑性错误
-        if (response.data.code !== 1) {
+    (response) => {
+        // 检查是否有code字段，避免错误访问
+        if (response.data.code !== undefined && response.data.code !== 1) {
             Toast.show({
                 icon: 'fail',
-                content: response.data.message
+                content: response.data.message || '操作失败'
             })
             return Promise.reject(response)
         }
         return response
     },
-    (res) => {//程序性错误
-        if (res.status !== 200) {
+    (res) => {
+        // 程序性错误处理
+        if (res.response?.status !== 200) {
             Toast.show({
                 icon: 'fail',
-                content: response.data.message
+                content: res.response?.data?.message || '请求失败'
             })
         }
 
-        if (res.status == 416) {//没有权限
-            // 重新定向去登录页面
+        if (res.response?.status === 416) {
+            // 没有权限，重定向到登录页面
             setTimeout(() => {
                 window.location.href = '/login'
             }, 2000)
-
         }
-        return Promise.reject(response)
+        
+        return Promise.reject(res)
     }
 )
 

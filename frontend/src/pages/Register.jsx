@@ -6,7 +6,7 @@ import { Toast } from 'antd-mobile'
 
 export default function Register() {
   const [nickname, setNickname] = useState('')
-  const [phone, setPhone] = useState('')
+  const [account, setAccount] = useState('')
   const [captchaCode, setCaptchaCode] = useState('')
   const [password, setPassword] = useState('')
   const [captchaId, setCaptchaId] = useState('')
@@ -29,8 +29,8 @@ export default function Register() {
   }
 
   // 验证账号格式（支持手机号或邮箱）
-  const validateAccount = (phone) => {
-    return validatePhone(phone) || validateEmail(phone)
+  const validateAccount = (account) => {
+    return validatePhone(account) || validateEmail(account)
   }
 
   //请求验证码
@@ -47,7 +47,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!nickname || !phone || !captchaCode || !password) {
+    if (!nickname || !account || !captchaCode || !password) {
       Toast.show({
         content: '请输入完整信息',
         icon: 'fail'
@@ -58,12 +58,12 @@ export default function Register() {
     setError('')
 
     // 校验账号格式
-    if (!phone.trim()) {
+    if (!account.trim()) {
       setError('请输入手机号或邮箱')
       return
     }
 
-    if (!validateAccount(phone)) {
+    if (!validateAccount(account)) {
       setError('请输入正确的手机号或邮箱格式')
       return
     }
@@ -77,15 +77,30 @@ export default function Register() {
     // 这里添加注册逻辑
     setLoading(true)
 
-    // 模拟注册请求
-    const res = await axios.post('/api/auth/register', {
-      nickname,
-      phone,
-      captchaCode,
-      password,
-      captchaId
-    })
+    try {
+      // 发送注册请求
+      const res = await axios.post('/api/auth/register', {
+        nickname,
+        account,
+        captchaCode,
+        password,
+        captchaId
+      })
 
+      // 注册成功处理
+      Toast.show({
+        content: '注册成功',
+        icon: 'success'
+      })
+
+      console.log('注册成功:', res.data)
+
+    } catch (error) {
+      // 错误处理由axios拦截器完成，这里只需要关闭loading状态
+      console.error('注册失败:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -111,9 +126,9 @@ export default function Register() {
             type="text"
             placeholder='请输入手机号或邮箱'
             className='register-form__input'
-            value={phone}
+            value={account}
             onChange={(e) => {
-              setPhone(e.target.value)
+              setAccount(e.target.value)
             }}
           />
         </div>

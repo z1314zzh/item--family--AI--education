@@ -1,4 +1,4 @@
-const { findUserByAccount } = require('../models/authModel.js')
+const { findUserByAccount, createUser } = require('../models/authModel.js')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { generateCaptcha, verifyCaptcha } = require('../utils/captcha.js')
@@ -51,53 +51,81 @@ function getCaptcha(ctx) {
         ctx.body = {
             captchaId: captcha.id,
             svg: captcha.svg,
-            code:1
+            code: 1
         }
-    }catch(error){
+    } catch (error) {
         ctx.status = 500,
-        ctx.body = {
-            message:'生成验证码失败',
-            code:0,
-            error:error.message        
-        }
+            ctx.body = {
+                message: '生成验证码失败',
+                code: 0,
+                error: error.message
+            }
     }
 }
 
 //验证注册逻辑
-function register(ctx){
-    const { nickname,phone,captchaCode,password, captchaId } = ctx.request.body
-    if(!nickname || !phone || password){
-        ctx.status =400
+async function register(ctx) {
+    const { nickname, account, captchaCode, password, captchaId } = ctx.request.body
+    if (!nickname || !account || !password) {
+        ctx.status = 400
         ctx.body = {
-            message:'账号密码和昵称都不能为空',
-            code:0
+            message: '账号密码和昵称都不能为空',
+            code: 0
         }
         return
     }
 
     // 验证图形验证码
-    if(!captchaCode || !captchaId){
+    if (!captchaCode || !captchaId) {
         ctx.status = 400
-        ctx.body ={
-            message:'请输入验证码',
-            code:0
+        ctx.body = {
+            message: '请输入验证码',
+            code: 0
         }
         return
     }
-    const captchaResult = verifyCaptcha(captchaId,captchaCode)
-    if(!captchaResult.valid){
+    const captchaResult = verifyCaptcha(captchaId, captchaCode)
+    if (!captchaResult.valid) {
         ctx.status = 400
-        ctx.body ={
-            message:captchaResult.message,
-            code:0
+        ctx.body = {
+            message: captchaResult.message,
+            code: 0
         }
         return
     }
 
-    //
+    // 判断数据库中账号是否已存在
+    const existed = await findUserByAccount(account)
+    if (existed) {
+        ctx.status = 400
+        ctx.body = {
+            message: '账号已存在',
+            code: 0
+        }
+        return
+    }
+
+    //加密密码
+    const passwordHash = await bcrypt.hash(password, 10)
+
+    //写入数据库
+    try {
+        const user = await createUser({ account, passwordHash, nickname })
+        ctx.body = {
+            message: '注册成功',
+            user,
+            code: 1
+        }
+    } catch (error) {
+        ctx.status = 500,
+            ctx.body = {
+                message: '服务器异常',
+                code:0
+            }
+    }
 }
 module.exports = {
-     login,
-     getCaptcha,
-     register
+    login,
+    getCaptcha,
+    register
 }
