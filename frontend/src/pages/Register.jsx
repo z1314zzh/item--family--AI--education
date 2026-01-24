@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import axios from '../http'
 import { Toast } from 'antd-mobile'
 
-export default function Register() {
+export default function Register({ changeActiveTab }) {
   const [nickname, setNickname] = useState('')
   const [account, setAccount] = useState('')
   const [captchaCode, setCaptchaCode] = useState('')
@@ -89,12 +89,10 @@ export default function Register() {
 
       // 注册成功处理
       Toast.show({
-        content: '注册成功',
+        content: res.data.message,
         icon: 'success'
       })
-
-      console.log('注册成功:', res.data)
-
+      changeActiveTab("login",{account,password})
     } catch (error) {
       // 错误处理由axios拦截器完成，这里只需要关闭loading状态
       console.error('注册失败:', error)
@@ -146,6 +144,7 @@ export default function Register() {
           />
           <div className="register-form__captcha-img" title='点击刷新验证码'
             dangerouslySetInnerHTML={{ __html: captchaSvg }}
+            onClick={loadCaptcha}
           ></div>
         </div>
         <div className="register-form__group">

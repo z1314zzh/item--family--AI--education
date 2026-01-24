@@ -10,11 +10,20 @@ import Home from './pages/Home'
 // 登录注册页面组件
 const AuthPage = () => {
   const [activeTab, setActiveTab] = useState('login')
+  const [account,setAccount] = useState('')
+  const [password,setPassword] = useState('')
+
   const login = () => {
     setActiveTab('login')
   }
   const resgister = () => {
     setActiveTab('register')
+  }
+
+  const changeActiveTab = (tab,{account,password}) => {
+      setActiveTab(tab)
+      setAccount(account)
+      setPassword(password)
   }
 
   return (
@@ -36,7 +45,7 @@ const AuthPage = () => {
           </div>
           {/* 登录模块 */}
           {
-            activeTab === 'login' ? (<Login></Login>) : <Register></Register>
+            activeTab === 'login' ? (<Login user={{account,password}}></Login>) : <Register changeActiveTab = {changeActiveTab}></Register>
           }
           <div className="social-login">
             <div className="divider">

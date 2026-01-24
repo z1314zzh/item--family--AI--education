@@ -18,14 +18,20 @@ async function login(ctx) {
 
     if (!user) {
         ctx.status = 400
-        ctx.body = { message: '账号不存在' }
+        ctx.body = {
+            message: '账号不存在',
+            code: 0
+        }
         return
     }
     // 校验密码
     const ok = await bcrypt.compare(password, user.password_hash)
     if (!ok) {
         ctx.status = 400
-        ctx.body = { message: '密码错误' }
+        ctx.body = {
+            message: '密码错误',
+            code: 0
+        }
         return
     }
     //生成一个 token
@@ -39,8 +45,6 @@ async function login(ctx) {
         },
         code: 1
     }
-
-
 
 }
 
@@ -120,7 +124,7 @@ async function register(ctx) {
         ctx.status = 500,
             ctx.body = {
                 message: '服务器异常',
-                code:0
+                code: 0
             }
     }
 }

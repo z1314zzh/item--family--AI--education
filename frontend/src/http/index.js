@@ -22,22 +22,21 @@ axios.interceptors.response.use(
         if (response.data.code !== undefined && response.data.code !== 1) {
             Toast.show({
                 icon: 'fail',
-                content: response.data.message || '操作失败'
+                content: response.data.message
             })
             return Promise.reject(response)
         }
         return response
     },
-    (res) => {
-        // 程序性错误处理
-        if (res.response?.status !== 200) {
+    (res) => {// 程序性错误处理
+        if (res.status !== 200) {
             Toast.show({
                 icon: 'fail',
-                content: res.response?.data?.message || '请求失败'
+                content: res.response.data.message
             })
         }
 
-        if (res.response?.status === 416) {
+        if (res.status === 416) {
             // 没有权限，重定向到登录页面
             setTimeout(() => {
                 window.location.href = '/login'
