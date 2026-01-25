@@ -1,11 +1,13 @@
 import React from 'react'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './styles/app.less'
 import { useState } from 'react'
 import Layout from './pages/Layout'
-
+import Home from './pages/Home.jsx'
+import MinePage from './pages/MinePage.jsx'
+import AIpage from './pages/AIpage.jsx'
 
 // 登录注册页面组件
 const AuthPage = () => {
@@ -81,7 +83,13 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout/>}></Route>
+        <Route path='/' element={<Layout/>}>
+        {/* 重定向 */}
+            <Route path='' element={<Navigate to = '/home'/>}></Route>
+            <Route path='/home' element= {<Home/>}></Route>
+            <Route path='/aipage' element= {<AIpage/>}></Route>
+            <Route path='/minepage' element= {<MinePage/>}></Route>        
+        </Route>
         <Route path='/login' element={<AuthPage />}></Route>
       </Routes>
     </BrowserRouter>
