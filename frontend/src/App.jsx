@@ -4,7 +4,7 @@ import Register from './pages/Register'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './styles/app.less'
 import { useState } from 'react'
-import Home from './pages/Home'
+import Layout from './pages/Layout'
 
 
 // 登录注册页面组件
@@ -81,7 +81,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home/>}></Route>
+        <Route path='/' element={<Layout/>}></Route>
         <Route path='/login' element={<AuthPage />}></Route>
       </Routes>
     </BrowserRouter>
