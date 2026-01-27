@@ -48,7 +48,7 @@ export default function Home() {
           
               {
                 quickEntries.map((item) => (
-                  <HomeCard title= {item.title} desc = {item.desc} tag={item.tag} path={item.path}></HomeCard>
+                  <HomeCard key={item.tag} title= {item.title} desc = {item.desc} tag={item.tag} path={item.path}></HomeCard>
                 ))
               }
            
