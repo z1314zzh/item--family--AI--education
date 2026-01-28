@@ -3,8 +3,8 @@ import './index.less'
 import { useNavigate } from 'react-router-dom';
 
 export default function index({
-  theme = 'default'
-
+  theme = 'default',
+  onRecognition
 }) {
   const [selectedImage,setSelectedImage] = useState(null)
   const navigate = useNavigate('')
@@ -33,8 +33,16 @@ export default function index({
     if(file){
       const imageUrl = URL.createObjectURL(file) //将 file 对象转换成 url
       setSelectedImage(imageUrl)
+      // ai识别
+      onRecognition(file)
     }
   }
+
+  const handleClear = () => { //清除预览效果
+      setSelectedImage(null)
+      fileInputRef.current.value = null
+  }
+
   return (
     <div className='image-capture-root'>
       <header className='image-capture-header'>
@@ -50,15 +58,17 @@ export default function index({
       </header>
 
       <main className='image-capture-main'>
+        {/* 图片预览区域 */}
         <section className="image-capture-preview" style={{
           background: `radial-gradient(circle at 20% 20%, ${currentTheme.gradient[0]} 0, transparent 35%),
                       radial-gradient(circle at 90% 10%, ${currentTheme.gradient[1]} 0, transparent 40%),
                       #ffffff`}}>
-          {
-            selectedImage ? (
-              <div className="image-capture-prew__image-container">
+            {selectedImage ? (
+              <div className="image-capture-preview__image-container">
                 <img src={selectedImage} alt="" className='image-capture-preview__image' />
-                <button className='image-capture-preview__clear'>
+                <button className='image-capture-preview__clear' onClick={() => {
+                  handleClear()
+                }}>
                   <i className='iconfont icon-close'></i>
                 </button>
               </div>

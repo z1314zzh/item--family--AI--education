@@ -3,9 +3,12 @@ import ImageCaptureAndProcess from './components/imageCaptureAndProcess/index.js
 
 // AI识物
 export default function Recognition() {
+  const realRecognition = () => {
+    
+  }
   return (
     <div>
-        <ImageCaptureAndProcess></ImageCaptureAndProcess>
+        <ImageCaptureAndProcess onRecognition={realRecognition}></ImageCaptureAndProcess>
     </div>
   )
 }

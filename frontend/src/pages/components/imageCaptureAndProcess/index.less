@@ -1,8 +1,10 @@
 // 图片拍照和处理公共组件样式
 .image-capture-root {
+  min-height: 100vh;
   background: linear-gradient(180deg, #f9fbff 0%, #f6f7fb 40%, #ffffff 100%);
   display: flex;
   flex-direction: column;
+  padding-bottom: 80px; /* 添加底部内边距，避免被导航栏遮挡 */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #1f1f1f;
   
@@ -59,10 +61,6 @@
     cursor: pointer;
     font-size: 18px;
     color: #333;
-    .iconfont{
-        font-weight:700;
-        font-size: 18px;
-    }
     
     &:hover {
       background-color: #e0e0e0;
@@ -112,7 +110,6 @@
       font-size: 64px;
       margin-bottom: 16px;
       opacity: 0.5;
-      display: block;
     }
     
     p {
@@ -158,6 +155,7 @@
     }
   }
 }
+
 // 操作按钮区域
 .image-capture-actions {
   display: flex;
