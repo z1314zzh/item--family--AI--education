@@ -8,6 +8,7 @@ export default function Recognition() {
   }
   return (
     <div>
+      
         <ImageCaptureAndProcess onRecognition={realRecognition}></ImageCaptureAndProcess>
     </div>
   )
