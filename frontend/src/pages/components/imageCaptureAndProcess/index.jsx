@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function index({
   theme = 'default',
-  onRecognition
+  onRecognition,
+  recognitionResult
 }) {
   const [selectedImage,setSelectedImage] = useState(null)
   const navigate = useNavigate('')
@@ -94,7 +95,16 @@ export default function index({
           </button>
           <input type="file" accept='image/*'  ref={fileInputRef} onChange={handleImageUpload} style={{display:'none'}}/>
         </section>
+        {
+          recognitionResult && (
+            <div className='image-capture-result'>
+              <p>识别结果: {recognitionResult}</p>
+            </div>
+          )
+        }
       </main>
+
+      
     </div>
   )
 }
