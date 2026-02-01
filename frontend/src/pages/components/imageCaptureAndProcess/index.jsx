@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import './index.less'
 import { useNavigate } from 'react-router-dom';
 
+
 export default function index({
   theme = 'default',
   onRecognition,
@@ -98,7 +99,7 @@ export default function index({
         {
           recognitionResult && (
             <div className='image-capture-result'>
-              <p>识别结果: {recognitionResult}</p>
+              <RecognitionResult></RecognitionResult>
             </div>
           )
         }
