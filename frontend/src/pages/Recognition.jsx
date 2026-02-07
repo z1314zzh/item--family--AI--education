@@ -4,6 +4,7 @@ import axios from '../http/index.js'
 import { Toast } from 'antd-mobile'
 import { useState } from 'react'
 
+
 // AI识物
 export default function Recognition() {
   const [recognitionResult,setRecognitionResult] = useState(null)
