@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom';
 export default function index({
   theme = 'default',
   onRecognition,
-  recognitionResult
+  recognitionResult,
+  children,
 }) {
   const [selectedImage,setSelectedImage] = useState(null)
   const navigate = useNavigate('')
@@ -96,7 +97,10 @@ export default function index({
           </button>
           <input type="file" accept='image/*'  ref={fileInputRef} onChange={handleImageUpload} style={{display:'none'}}/>
         </section>
-      </main>
+        {
+           children
+        }
+      </main> 
     </div>
   )
 }
