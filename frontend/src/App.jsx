@@ -71,15 +71,13 @@ const AuthPage = () => {
           <div className="auth-footnote">
             <p>注册既表示您同意 <a href="#">《用户协议》</a>和<a href="#">《隐私政策》</a></p>
           </div>
-        </div>
+        </div>  
       </div>
     </div>
   )
 }
 
 export default function App() {
-
-
 
   return (
     <BrowserRouter>

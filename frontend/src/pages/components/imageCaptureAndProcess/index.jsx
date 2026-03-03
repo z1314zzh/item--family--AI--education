@@ -96,16 +96,7 @@ export default function index({
           </button>
           <input type="file" accept='image/*'  ref={fileInputRef} onChange={handleImageUpload} style={{display:'none'}}/>
         </section>
-        {
-          recognitionResult && (
-            <div className='image-capture-result'>
-              <RecognitionResult></RecognitionResult>
-            </div>
-          )
-        }
       </main>
-
-      
     </div>
   )
 }

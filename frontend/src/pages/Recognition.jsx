@@ -3,6 +3,7 @@ import ImageCaptureAndProcess from './components/imageCaptureAndProcess/index.js
 import axios from '../http/index.js'
 import { Toast } from 'antd-mobile'
 import { useState } from 'react'
+import RecognitionResult from './components/recognitionResult/index.jsx'
 
 
 // AI识物
@@ -53,7 +54,6 @@ export default function Recognition() {
     <div>
       <ImageCaptureAndProcess
        onRecognition={realRecognition}
-      recognitionResult={recognitionResult}
       > 
       <RecognitionResult recognitionResult={recognitionResult}></RecognitionResult>
       </ImageCaptureAndProcess>
