@@ -29,9 +29,8 @@ export default function Recognition() {
       const res = await axios.post('/api/coze/recognition', {
         img: dataUrl
       })
-
       // 获取语音文字描述
-      const text = res.data.data.image_description
+      // const text = res.data.data.image_description
       // // 获取语音
       // const audioUrl = res.data.data.audio_url
       // // 播放语音
@@ -40,7 +39,8 @@ export default function Recognition() {
       // 清除提示
        Toast.clear()
        // 存储识别结果
-       setRecognitionResult(text)
+
+       setRecognitionResult(res.data.data)
     } catch (error) {
       // 识别失败提示
       Toast.show({
