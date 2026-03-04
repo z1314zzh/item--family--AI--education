@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/aiPage.less'
 
 export default function AIpage() {
   return (
@@ -10,9 +11,19 @@ export default function AIpage() {
 
       <section className='ai-page-content'>
         <div className='ai-feature-card'>
-          <i className='iconfont'></i>
+          <i className='iconfont icon-robot-2-fill ai-feature-icon'></i>
           <h3>智能对话</h3>
           <p>与ai进行智能对话,解答各种问题</p>
+        </div>
+         <div className='ai-feature-card'>
+          <i className='iconfont icon-shuben-book3 ai-feature-icon'></i>
+          <h3>作业辅导</h3>
+          <p>ai辅导孩子完成作业</p>
+        </div>
+         <div className='ai-feature-card'>
+          <i className='iconfont icon-maikefeng ai-feature-icon' ></i>
+          <h3>语言交互</h3>
+          <p>与ai进行语言交互,进行学习</p>
         </div>
       </section>
     </div>

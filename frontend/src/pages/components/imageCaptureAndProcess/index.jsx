@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 export default function index({
   theme = 'default',
   onRecognition,
-  recognitionResult,
   children,
 }) {
   const [selectedImage,setSelectedImage] = useState(null)

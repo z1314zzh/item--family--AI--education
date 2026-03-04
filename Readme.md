@@ -42,9 +42,6 @@
 - 定义验证码接口
    1. npm install --save svg-captcha
  
- 
-
-
  # 跨域
  https:     //42.245.43.1     :8080        /home
  协议            域名           端口          路径          

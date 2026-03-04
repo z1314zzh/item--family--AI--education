@@ -54,7 +54,6 @@ export default function Recognition() {
     <div>
       <ImageCaptureAndProcess
        onRecognition={realRecognition}
-       recognitionResult={recognitionResult}
       > 
       <RecognitionResult recognitionResult={recognitionResult}></RecognitionResult>
       </ImageCaptureAndProcess>
