@@ -1,5 +1,8 @@
 import React from 'react'
 import '../styles/MinePage.less'
+import { Button, Card, Toast } from 'antd-mobile'
+import { AntOutline, RightOutline } from 'antd-mobile-icons'
+import { List, Switch } from 'antd-mobile'
 
 export default function MinePage() {
   return (
@@ -15,6 +18,18 @@ export default function MinePage() {
           </div>
         </div>
       </header>
+      <div className='mine-page-content'>
+        <section>
+          <Card headerStyle={{ color: 'black', }} title='我的内容'>
+            <List>
+              <List.Item style={{}} prefix={<i className='iconfont icon-shoucang'></i>} onClick={() => { }  }>我的收藏</List.Item>
+              <List.Item style={{}} prefix={<i className='iconfont icon-liulanlishi'></i>} onClick={() => { }}>浏览历史</List.Item>
+            </List>
+          </Card>
+        </section>
+
+      </div>
+
     </div>
   )
 }
