@@ -19,14 +19,24 @@ export default function MinePage() {
         </div>
       </header>
       <div className='mine-page-content'>
-        <section>
-          <Card headerStyle={{ color: 'black', }} title='我的内容'>
+        
+          <Card headerStyle={{height: '60px' }} title='我的内容' className='mine-page-card'>
             <List>
-              <List.Item style={{}} prefix={<i className='iconfont icon-shoucang'></i>} onClick={() => { }  }>我的收藏</List.Item>
-              <List.Item style={{}} prefix={<i className='iconfont icon-liulanlishi'></i>} onClick={() => { }}>浏览历史</List.Item>
+              <List.Item  prefix={<i className='iconfont icon-shoucang'></i>} onClick={() => { }  }>我的收藏</List.Item>
+              <List.Item  prefix={<i className='iconfont icon-liulanlishi'></i>} onClick={() => { }}>浏览历史</List.Item>
             </List>
           </Card>
-        </section>
+
+          <Card headerStyle={{height: '60px' }} title='设置' className='mine-page-card'>
+            <List>
+              <List.Item  prefix={<i className='iconfont icon-shezhi-copy'></i>} onClick={() => { }}>账号设置</List.Item>
+              <List.Item  prefix={<i className='iconfont icon-tongzhi'></i>} onClick={() => { }}>通知设置</List.Item>
+              <List.Item  prefix={<i className='iconfont icon-bangzhu'></i>} onClick={() => { }}>帮助中心</List.Item>
+              <List.Item  prefix={<i className='iconfont icon-tuichudenglu'></i>} onClick={() => { }}>退出登录</List.Item>
+            </List>
+
+          </Card>
+        
 
       </div>
 
