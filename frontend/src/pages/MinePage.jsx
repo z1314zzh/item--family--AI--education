@@ -1,10 +1,22 @@
 import React from 'react'
 import '../styles/MinePage.less'
-import { Button, Card, Toast } from 'antd-mobile'
-import { AntOutline, RightOutline } from 'antd-mobile-icons'
-import { List, Switch } from 'antd-mobile'
+import { Card } from 'antd-mobile'
+import { List } from 'antd-mobile'
+import { ActionSheet, Button, Dialog, Space, Toast } from 'antd-mobile'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function MinePage() {
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    setVisible(true)
+  }
+  const actions = [
+    {text:'确认退出登录吗？',key:'confirm'}
+  ]
+  const [visible, setVisible] = useState(false)
+
+
   return (
     <div className='mine-page-root'>
       <header className='mine-page-header'>
@@ -29,16 +41,35 @@ export default function MinePage() {
 
           <Card headerStyle={{height: '60px' }} title='设置' className='mine-page-card'>
             <List>
-              <List.Item  prefix={<i className='iconfont icon-shezhi-copy'></i>} onClick={() => { }}>账号设置</List.Item>
+              <List.Item  prefix={<i className='iconfont icon-shezhi-copy'></i>} onClick={() => { navigate('/AccountSetting')}}>账号设置</List.Item>
               <List.Item  prefix={<i className='iconfont icon-tongzhi'></i>} onClick={() => { }}>通知设置</List.Item>
               <List.Item  prefix={<i className='iconfont icon-bangzhu'></i>} onClick={() => { }}>帮助中心</List.Item>
-              <List.Item  prefix={<i className='iconfont icon-tuichudenglu'></i>} onClick={() => { }}>退出登录</List.Item>
+              <List.Item  prefix={<i className='iconfont icon-tuichudenglu'></i>} onClick={() => {handleLogout()}}>退出登录</List.Item>
             </List>
 
           </Card>
         
 
       </div>
+      <div className='mine-page-footer'>
+      </div>
+      <ActionSheet
+        visible={visible}
+        actions={actions}
+        onClose={() => setVisible(false)}
+        cancelText='手滑了'
+        onAction = {(action,index) => {
+          if(action.key === 'confirm'){
+            // 退出登录
+            setVisible(false)
+            // 清除登录状态
+            localStorage.removeItem('token')
+            // 跳转到登录页
+            navigate('/login')
+          }
+        }}
+      />
+
 
     </div>
   )

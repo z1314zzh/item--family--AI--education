@@ -9,6 +9,7 @@ import Home from './pages/Home.jsx'
 import MinePage from './pages/MinePage.jsx'
 import AIpage from './pages/AIpage.jsx'
 import Recognition from './pages/Recognition.jsx'
+import AccountSetting from './pages/AccountSetting.jsx'
 
 // 登录注册页面组件
 const AuthPage = () => {
@@ -91,6 +92,7 @@ export default function App() {
             <Route path='/recognition' element= {<Recognition/>}></Route>        
         </Route>
         <Route path='/login' element={<AuthPage />}></Route>
+        <Route path='/AccountSetting' element={<AccountSetting />}></Route>
       </Routes>
     </BrowserRouter>
   )
