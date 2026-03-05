@@ -128,6 +128,17 @@ async function register(ctx) {
             }
     }
 }
+
+//获取用户信息
+async function getUserInfo(ctx) {
+    ctx.response.type = 'json'
+    ctx.body = {
+        status: 'ok',
+        message:'获取用户信息成功',
+        data: ctx.state.user
+    }
+}
+
 module.exports = {
     login,
     getCaptcha,
