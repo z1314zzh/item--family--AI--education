@@ -6,14 +6,16 @@ import { useEffect , useState } from 'react'
 import axios from 'axios'
 
 export default function AccountSetting() {
-  const [userInfo, setUserInfo] = useState({})
+  const [account, setAccount] = useState('')
+  const [avatar, setAvatar] = useState('')
+  const [nickname, setNickname] = useState('')
   const navigate = useNavigate()
   
   useEffect(() => {
     axios.get('/api/auth/info').then(res => {
-      if (res.data.code === 200) {
-        setUserInfo(res.data.data)
-      }
+        setAccount(res.data.account)
+        setAvatar(res.data.avatar)
+        setNickname(res.data.nickname)
     })
   }, [])
 

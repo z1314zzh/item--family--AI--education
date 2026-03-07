@@ -157,12 +157,6 @@ async function getUserInfo(ctx) {
             code: 0
         }
     }
-    ctx.response.type = 'json'
-    ctx.body = {
-        status: 'ok',
-        message: '获取用户信息成功',
-        data: ctx.state.user
-    }
 }
 
 module.exports = {

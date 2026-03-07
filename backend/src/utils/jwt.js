@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 
 function verifyToken() {
-    return (ctx, next) => {
+    return async (ctx, next) => {
         const token = ctx.headers.authorization
         if (token) {
             // 解析 token
@@ -10,7 +10,7 @@ function verifyToken() {
                 const decoded = jwt.verify(token,'zzh')
                 if (decoded.id){  //token 合法 
                     ctx.userId = decoded.id
-                    next()
+                  await  next()
                 }
             } catch(error) {
                 ctx.status =416
@@ -18,7 +18,6 @@ function verifyToken() {
                     code:0,
                     message:'token 失效'
                 }
-
             }
 
         } else {
