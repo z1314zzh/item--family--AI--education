@@ -1,4 +1,4 @@
-const { findUserByAccount, createUser } = require('../models/authModel.js')
+const { findUserByAccount, createUser, findUserById } = require('../models/authModel.js')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { generateCaptcha, verifyCaptcha } = require('../utils/captcha.js')
@@ -131,10 +131,36 @@ async function register(ctx) {
 
 //获取用户信息
 async function getUserInfo(ctx) {
+    const id = ctx.userId
+    try {
+        const res = await findUserById(id)
+        const data = {
+            code: 1,
+            id: res.id,
+            account: res.account,
+            nickname: res.nickname,
+            create_time: res.create_time,
+            avatar: res.avatar
+        }
+        ctx.body = data
+        if (!res) {
+            ctx.status = 400
+            ctx.body = {
+                message: '用户不存在',
+                code: 0
+            }
+        }
+    } catch (error) {
+        ctx.status = 400
+        ctx.body = {
+            message: '获取用户信息失败',
+            code: 0
+        }
+    }
     ctx.response.type = 'json'
     ctx.body = {
         status: 'ok',
-        message:'获取用户信息成功',
+        message: '获取用户信息成功',
         data: ctx.state.user
     }
 }

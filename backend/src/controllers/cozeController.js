@@ -15,7 +15,7 @@ async function recognition(ctx) {
       method: 'post',
       url: 'https://sxvxdzkwjn.coze.site/run',
       headers: {
-        'Authorization': `Bearer ${process.env.COZE_IMAGE_TO_TEXT_AND_VOICE}`,
+        'Authorization': `Bearer ${process.env.VITE_COZE_IMAGE_TO_TEXT_AND_VOICE}`,
         'Content-Type': 'application/json'
       },
       data: params

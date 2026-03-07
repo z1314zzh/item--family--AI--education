@@ -16,7 +16,13 @@ async function createUser({ account, passwordHash, nickname }) {
   }
 }
 
+async function findUserById(id) {
+  const [rows] = await db.execute(`SELECT * FROM users WHERE id=${id}`)
+  return rows[0]
+}
+
 module.exports = {
   findUserByAccount,
-  createUser
+  createUser,
+  findUserById
 }

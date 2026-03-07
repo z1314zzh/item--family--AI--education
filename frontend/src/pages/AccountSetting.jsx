@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { List } from 'antd-mobile'
 import { Avatar } from 'antd-mobile'
-import { useEffect } from 'react'
+import { useEffect , useState } from 'react'
 import axios from 'axios'
 
 export default function AccountSetting() {

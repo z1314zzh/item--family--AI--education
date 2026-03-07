@@ -1,5 +1,7 @@
 // 创建所有与账号有关的接口
 const { login, getCaptcha, register ,getUserInfo} = require('../controllers/authController.js')  //{login: fn}
+const {verifyToken} = require('../utils/jwt.js')
+
 const Router = require('koa-router')
 
 
@@ -15,7 +17,7 @@ router.get('/captcha', getCaptcha)
 router.post('/register', register)
 
 //获取用户信息接口
-router.get('/info',getUserInfo)
+router.get('/info',verifyToken(),getUserInfo)
 
 
 
