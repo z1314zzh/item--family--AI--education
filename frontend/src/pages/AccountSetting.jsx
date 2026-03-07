@@ -5,7 +5,7 @@ import { Avatar } from 'antd-mobile'
 import { useEffect } from 'react'
 import axios from 'axios'
 
-export default function accountSetting() {
+export default function AccountSetting() {
   const [userInfo, setUserInfo] = useState({})
   const navigate = useNavigate()
   

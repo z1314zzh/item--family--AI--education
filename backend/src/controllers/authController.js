@@ -142,5 +142,6 @@ async function getUserInfo(ctx) {
 module.exports = {
     login,
     getCaptcha,
-    register
+    register,
+    getUserInfo
 }

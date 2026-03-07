@@ -15,7 +15,7 @@ router.get('/captcha', getCaptcha)
 router.post('/register', register)
 
 //获取用户信息接口
-router.get('/info',getUserInfo )
+router.get('/info',getUserInfo)
 
 
 
