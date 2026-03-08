@@ -1,9 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Avatar, ActionSheet, List, ImageViewer } from 'antd-mobile'
+import { Avatar, ActionSheet, List, ImageViewer, Toast } from 'antd-mobile'
 import { useEffect, useState, useRef } from 'react'
-import axios from 'axios'
+import axios from '../http/index.js'
 import '../styles/AccountSetting.less'
+
 
 export default function AccountSetting() {
   const [account, setAccount] = useState('')
@@ -13,7 +14,6 @@ export default function AccountSetting() {
   const [visible, setVisible] = useState(false)
   const [imageVisible, setImageVisible] = useState(false)
   const avatarRef = useRef(null)
-  const [selectedImage, setSelectedImage] = useState(null)
   const [uploading, setUploading] = useState(false)
   const actions = [
     { text: '从相册中选择', key: 'select' }
@@ -30,12 +30,42 @@ export default function AccountSetting() {
   const avatarChange = (e) => {
     const file = e.target.files[0]
     if (file) {
-      const imageUrl = URL.createObjectURL(file) //将 file 对象转换成 url
-      setUploading(imageUrl)
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        setUploading(reader.result)
+      }
       setImageVisible(true)
-      // 通过后端向数据库上传头像
     }
+  }
 
+  const uploadAvatar = async () => {
+    try {
+      //限制图片大小为 9MB
+      if (uploading.length > 9 * 1024 * 1024) {
+        Toast.show({
+          content: '图片大小不能超过 9MB',
+          duration: 5000,
+          icon: 'fail',
+        })
+      }
+      //向后端上传图片
+      // const formData = new FormData() //表单格式,这是十六进制的字符串
+      // formData.append('avatar', uploading)
+      // console.log(formData);  //麻烦，暂不使用
+      // 向后端发送请求
+      const params = {
+        avatar:uploading,
+      }
+      await axios.post('/api/auth/updateAvatar', params)
+      setAvatar(uploading)
+    } catch (error) {
+      Toast.show({
+        content: '上传失败',
+        duration: 5000,
+        icon: 'fail',
+      })
+    }
   }
 
 
@@ -56,7 +86,7 @@ export default function AccountSetting() {
 
       <section className="account-setting__section">
         <List>
-          <List.Item onClick={() => { setVisible(true) }} extra={<Avatar style={{ '--border-radius': '50%' }} src={selectedImage} size={40} />} clickable>头像</List.Item>
+          <List.Item onClick={() => { setVisible(true) }} extra={<Avatar style={{ '--border-radius': '50%' }} src={avatar} size={40} />} clickable>头像</List.Item>
           <List.Item onClick={() => { }} extra='zzh' clickable>昵称</List.Item>
           <List.Item onClick={() => { }} extra='17879987232' clickable>手机号</List.Item>
           <List.Item onClick={() => { }} extra='修改密码'>密码</List.Item>
@@ -86,11 +116,12 @@ export default function AccountSetting() {
         }}
         image={uploading}
         visible={imageVisible}
-        renderFooter={(uploading) => (
+        renderFooter={() => (
           <div className='footer'>
             <div className='footerButton' onClick={() => {
+              // 通过后端向数据库上传头像,需先将uploading转换为base64格式
+              uploadAvatar()
               setImageVisible(false)
-              setSelectedImage(uploading)
             }}>确认上传</div>
           </div>
         )}

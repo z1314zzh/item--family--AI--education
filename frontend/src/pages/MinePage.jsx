@@ -38,7 +38,7 @@ export default function MinePage() {
               <List.Item  prefix={<i className='iconfont icon-liulanlishi'></i>} onClick={() => { }}>浏览历史</List.Item>
             </List>
           </Card>
-
+          
           <Card headerStyle={{height: '60px' }} title='设置' className='mine-page-card'>
             <List>
               <List.Item  prefix={<i className='iconfont icon-shezhi-copy'></i>} onClick={() => { navigate('/AccountSetting')}}>账号设置</List.Item>
@@ -46,9 +46,7 @@ export default function MinePage() {
               <List.Item  prefix={<i className='iconfont icon-bangzhu'></i>} onClick={() => { }}>帮助中心</List.Item>
               <List.Item  prefix={<i className='iconfont icon-tuichudenglu'></i>} onClick={() => {handleLogout()}}>退出登录</List.Item>
             </List>
-
-          </Card>
-        
+          </Card> 
 
       </div>
       <div className='mine-page-footer'>

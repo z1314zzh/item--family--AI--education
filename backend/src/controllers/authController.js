@@ -1,7 +1,8 @@
-const { findUserByAccount, createUser, findUserById } = require('../models/authModel.js')
+const { findUserByAccount, createUser, findUserById, updateUserInfo } = require('../models/authModel.js')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { generateCaptcha, verifyCaptcha } = require('../utils/captcha.js')
+
 
 //校验登录逻辑
 async function login(ctx) {
@@ -159,9 +160,31 @@ async function getUserInfo(ctx) {
     }
 }
 
+//更新用户头像
+async function updateAvatar(ctx) {
+    const id = ctx.userId
+    const params = ctx.request.body
+    const res = await updateUserInfo(params, id)    
+    if (res[0].affectedRows) {
+        ctx.body = {
+            message: '更新成功',
+            code: 1
+        }       
+    }
+    else {
+        ctx.status = 400
+        ctx.body = {
+            message: '更新失败',
+            code: 0
+        }
+    }
+}
+
+
 module.exports = {
     login,
     getCaptcha,
     register,
-    getUserInfo
+    getUserInfo,
+    updateAvatar,
 }
