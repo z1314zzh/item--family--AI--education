@@ -164,12 +164,12 @@ async function getUserInfo(ctx) {
 async function updateUser(ctx) {
     const id = ctx.userId
     const params = ctx.request.body
-    const res = await updateUserInfo(params, id)    
+    const res = await updateUserInfo(params, id)
     if (res[0].affectedRows) {
         ctx.body = {
             message: '更新成功',
             code: 1
-        }       
+        }
     }
     else {
         ctx.status = 400
@@ -180,6 +180,42 @@ async function updateUser(ctx) {
     }
 }
 
+//更新用户密码
+async function updatePassword(ctx) {
+    const id = ctx.userId
+    const { oldPassword, newPassword } = ctx.request.body
+    const user = await findUserById(id)
+    // 校验密码
+    const ok = await bcrypt.compare(oldPassword, user.password_hash)
+    if (!ok) {
+        ctx.status = 400
+        ctx.body = {
+            message: '旧密码错误',
+            code: 0
+        }
+        return
+    }
+    // 加密新密码
+    const Password_Hash = await bcrypt.hash(newPassword, 10)
+    // 更新数据库
+    const res = await updateUserInfo({ Password_Hash }, id)
+    if (res[0].affectedRows) {
+        ctx.body = {
+            message: '密码更新成功',
+            code: 1
+        }
+    }
+    else {
+        ctx.status = 400
+        ctx.body = {
+            message: '密码更新失败',
+            code: 0
+        }
+    }
+
+}
+
+
 
 module.exports = {
     login,
@@ -187,4 +223,5 @@ module.exports = {
     register,
     getUserInfo,
     updateUser,
+    updatePassword,
 }

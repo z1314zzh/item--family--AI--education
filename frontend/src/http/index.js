@@ -42,7 +42,7 @@ axios.interceptors.response.use(
                 window.location.href = '/login'
             }, 2000)
         }
-        
+
         return Promise.reject(res)
     }
 )
