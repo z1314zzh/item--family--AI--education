@@ -160,8 +160,8 @@ async function getUserInfo(ctx) {
     }
 }
 
-//更新用户头像
-async function updateAvatar(ctx) {
+//更新用户信息
+async function updateUser(ctx) {
     const id = ctx.userId
     const params = ctx.request.body
     const res = await updateUserInfo(params, id)    
@@ -186,5 +186,5 @@ module.exports = {
     getCaptcha,
     register,
     getUserInfo,
-    updateAvatar,
+    updateUser,
 }

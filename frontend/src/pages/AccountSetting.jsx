@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Avatar, ActionSheet, List, ImageViewer, Toast } from 'antd-mobile'
+import { Avatar, ActionSheet, List, ImageViewer, Toast, Popup, Input, Button } from 'antd-mobile'
 import { useEffect, useState, useRef } from 'react'
 import axios from '../http/index.js'
 import '../styles/AccountSetting.less'
@@ -15,10 +15,11 @@ export default function AccountSetting() {
   const [imageVisible, setImageVisible] = useState(false)
   const avatarRef = useRef(null)
   const [uploading, setUploading] = useState(false)
+  const [popupVisible, setPopupVisible] = useState(false)
   const actions = [
     { text: '从相册中选择', key: 'select' }
   ]
-
+  //第一次进入设置，直接获取用户信息
   useEffect(() => {
     axios.get('/api/auth/info').then(res => {
       setAccount(res.data.account)
@@ -27,6 +28,7 @@ export default function AccountSetting() {
     })
   }, [])
 
+  //用于选择用户头像
   const avatarChange = (e) => {
     const file = e.target.files[0]
     if (file) {
@@ -39,6 +41,7 @@ export default function AccountSetting() {
     }
   }
 
+  //上传用户头像
   const uploadAvatar = async () => {
     try {
       //限制图片大小为 9MB
@@ -55,10 +58,16 @@ export default function AccountSetting() {
       // console.log(formData);  //麻烦，暂不使用
       // 向后端发送请求
       const params = {
-        avatar:uploading,
+        avatar: uploading,
       }
       await axios.post('/api/auth/updateAvatar', params)
+      Toast.show({
+        content: '上传成功',
+        duration: 2000,
+        icon: 'success',
+      })
       setAvatar(uploading)
+      //保证下一次上传同一张图时也会触发onChange
     } catch (error) {
       Toast.show({
         content: '上传失败',
@@ -66,6 +75,11 @@ export default function AccountSetting() {
         icon: 'fail',
       })
     }
+  }
+
+  //用于修改用户昵称
+  const nicknameChange = () => {
+    setPopupVisible(true)
   }
 
 
@@ -87,14 +101,15 @@ export default function AccountSetting() {
       <section className="account-setting__section">
         <List>
           <List.Item onClick={() => { setVisible(true) }} extra={<Avatar style={{ '--border-radius': '50%' }} src={avatar} size={40} />} clickable>头像</List.Item>
-          <List.Item onClick={() => { }} extra='zzh' clickable>昵称</List.Item>
-          <List.Item onClick={() => { }} extra='17879987232' clickable>手机号</List.Item>
+          <List.Item onClick={() => { nicknameChange() }} extra={nickname} clickable>昵称</List.Item>
+          <List.Item onClick={() => { }} extra={account} clickable>手机号</List.Item>
           <List.Item onClick={() => { }} extra='修改密码'>密码</List.Item>
         </List>
       </section>
 
       <input type="file" accept='image/*' ref={avatarRef} onChange={avatarChange} style={{ display: 'none' }} />
 
+      {/* 用于选择用户头像 */}
       <ActionSheet
         visible={visible}
         actions={actions}
@@ -103,12 +118,15 @@ export default function AccountSetting() {
         onAction={(action, index) => {
           //从相册中选择
           if (action.key === 'select') {
+            // 点击选择图片后，将input的value清空，否则会上传上次选择的图片
+            avatarRef.current.value = ''
             setVisible(true)
             avatarRef.current.click()
           }
           setVisible(false)
         }}
       />
+      {/* 用于显示用户选择的头像 */}
       <ImageViewer
         classNames={{
           mask: 'customize-mask',
@@ -129,7 +147,33 @@ export default function AccountSetting() {
           setImageVisible(false)
         }}
       />
-
+      {/* 用于显示用户选择的昵称 */}
+      <Popup
+        visible={popupVisible}
+        showCloseButton
+        position='right'
+        onClose={() => {
+          setPopupVisible(false)
+        }}
+      >
+        <div className="update-nickname">
+          <div className="update-nickname__title">新昵称:</div>
+          <div className="update-nickname__input-container">
+            <Input
+              placeholder='请输入内容'
+              value={nickname}
+              onChange={val => {
+                setNickname(val)
+              }}
+            />
+          </div>
+        </div>
+        <Button type='primary' block className='update-nickname__confirm' onClick={
+          () => {
+            setPopupVisible(false)
+          }
+        }>确认</Button>
+      </Popup>
 
 
     </div>
