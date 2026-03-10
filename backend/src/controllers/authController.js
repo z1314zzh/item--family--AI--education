@@ -184,6 +184,7 @@ async function updateUser(ctx) {
 async function updatePassword(ctx) {
     const id = ctx.userId
     const { oldPassword, newPassword } = ctx.request.body
+    try{
     const user = await findUserById(id)
     // 校验密码
     const ok = await bcrypt.compare(oldPassword, user.password_hash)
@@ -210,6 +211,15 @@ async function updatePassword(ctx) {
         ctx.body = {
             message: '密码更新失败',
             code: 0
+        }
+    }
+    }
+    catch (error) {
+        ctx.status = 500,
+        ctx.body = {
+            message: '密码更新失败',
+            code: 0,
+            error: error.message
         }
     }
 

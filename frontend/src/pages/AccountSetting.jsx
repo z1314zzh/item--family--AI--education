@@ -194,7 +194,6 @@ export default function AccountSetting() {
         renderFooter={() => (
           <div className='footer'>
             <div className='footerButton' onClick={() => {
-              // 通过后端向数据库上传头像,需先将uploading转换为base64格式
               uploadAvatar()
               setImageVisible(false)
             }}>确认上传</div>
