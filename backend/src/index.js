@@ -39,6 +39,8 @@ app
 .use(authRoutes.allowedMethods())
 .use(coze_api.routes())
 .use(coze_api.allowedMethods())
+.use(deepseek-api.routes())
+.use(deepseek-api.allowedMethods())
 
 app.listen(3000,() => {
     console.log('服务器已运行在3000端口');
