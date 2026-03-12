@@ -12,7 +12,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@koa/cors": "^5.0.0",
+    "@koa/cors": "^5.0.0", 
     "axios": "^1.13.4",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
@@ -21,6 +21,7 @@
     "koa-bodyparser": "^4.4.1",
     "koa-router": "^14.0.0",
     "mysql2": "^3.16.1",
+    "openai": "^6.27.0",
     "svg-captcha": "^1.4.0"
   }
 }

@@ -1,14 +1,17 @@
-const koa = require('koa')
-const Router = require('koa-router')
-const authRoutes = require('./routes/authRoutes.js')
-const coze_api = require('./routes/coze_api.js')
-const bodyParser = require('koa-bodyparser')
-const cors = require('@koa/cors')
-const dotenv = require('dotenv')
 
+const koa = require('koa')
+const dotenv = require('dotenv')
 dotenv.config({
     path:['.env.local','.env']
 })
+const Router = require('koa-router')
+const authRoutes = require('./routes/authRoutes.js')
+const coze_api = require('./routes/coze_api.js')
+const deepseek_api = require('./routes/deepseek-api.js')
+const bodyParser = require('koa-bodyparser')
+const cors = require('@koa/cors')
+
+
 
 const app = new koa()
 app.use(cors({
@@ -39,8 +42,8 @@ app
 .use(authRoutes.allowedMethods())
 .use(coze_api.routes())
 .use(coze_api.allowedMethods())
-.use(deepseek-api.routes())
-.use(deepseek-api.allowedMethods())
+.use(deepseek_api.routes())
+.use(deepseek_api.allowedMethods())
 
 app.listen(3000,() => {
     console.log('服务器已运行在3000端口');
