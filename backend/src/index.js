@@ -14,11 +14,7 @@ const cors = require('@koa/cors')
 
 
 const app = new koa()
-app.use(cors({
-    origin(){
-        return'http://localhost:5173'
-    }
-}))
+app.use(cors())
 
 //测试接口
 const router = new Router({
